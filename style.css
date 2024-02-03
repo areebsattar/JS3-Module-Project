@@ -1,3 +1,19 @@
 #root {
-  color: red;
+  color: rgb(39, 39, 39);
+  background-color: beige;
+}
+
+#show-card{
+  display: flex;
+  flex-direction: row;
+}
+
+#firstSection{
+  background-color: bisque;
+  padding: 2px;
+}
+
+#secondSection{
+  background-color: antiquewhite;
+  padding: 2px;
 }
