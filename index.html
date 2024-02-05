@@ -10,20 +10,20 @@
 </head>
 
 <body>
+  <label>
+    <input type="search" id="search" name="search-field" placeholder="Search term" /> 🔍
+  </label>
+  <template id="episode-card">
+    <section id="firstSection">
+      <h1 id="episode-title">Episode Title</h1>
+      <p id="episode-code">Episode cod</p>
+    </section>
+    <section id="secondSection">
+      <img id="episode-img"></img>
+      <p id="episode-summary">summary</p>
+    </section>
+  </template>
   <div id="root">
-    <label>
-      <input type="search" id="q" name="q" placeholder="Search term" /> 🔍
-    </label>
-    <template id="episode-card">
-      <section id="firstSection">
-        <h1 id="episode-title">Episode Title</h1>
-        <p id="episode-code">Episode cod</p>
-      </section>
-      <section id="secondSection">
-        <img id="episode-img"></img>
-        <p id="episode-summary">summary</p>
-      </section>
-    </template>
   </div>
   <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
   <script src="episodes.js"></script>

@@ -1,4 +1,7 @@
-const episodes = getAllEpisodes();
+const state = {
+  episodes: getAllEpisodes(),
+  searchTerm: "",
+};
 
 function createEpisodeCard(episode) {
   const card = document.getElementById("episode-card").content.cloneNode(true);
@@ -18,9 +21,23 @@ function episodeCode(season, number) {
   return code;
 }
 
-function render() {
-  const episodeCards = episodes.map(createEpisodeCard);
-  document.getElementById("root").append(...episodeCards);
+const searchBox = document.getElementById("search");
+
+searchBox.addEventListener("input", handleSearchInput);
+
+function handleSearchInput(event) {
+  state.searchTerm = event.target.value;
+  console.log(state.searchTerm);
+  render();
 }
 
-window.onload = render;
+function render() {
+  const rootElem = document.getElementById("root");
+  rootElem.innerHTML = "";
+  const filteredEpisodes = state.episodes.filter((episode) => episode.name.toLowerCase().includes(state.searchTerm.toLowerCase()));
+  console.log(filteredEpisodes);
+  const episodeCards = filteredEpisodes.map(createEpisodeCard);
+  rootElem.append(...episodeCards);
+}
+
+render();
