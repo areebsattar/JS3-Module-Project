@@ -3,7 +3,7 @@
   background-color: beige;
 }
 
-#show-card{
+#episode-card{
   display: flex;
   flex-direction: row;
 }

@@ -7,15 +7,19 @@ function setup() {
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   for (const episode of episodeList) {
-    const card = document.getElementById("show-card").content.cloneNode(true);
-    const title = card.querySelector("#show-title");
-    title.textContent = episode.name;
-    title.setAttribute("href", episode.url);
-    card.querySelector("#episode-code").textContent = episodeCode(episode.season, episode.number);
-    card.querySelector("#episode-img").src = episode.image.medium;
-    card.querySelector("#episode-summary").innerHTML = episode.summary;
+    const card = createEpisodeCard(episode);
     rootElem.append(card);
   }
+}
+function createEpisodeCard(episode) {
+  const card = document.getElementById("episode-card").content.cloneNode(true);
+  const title = card.querySelector("#episode-title");
+  title.textContent = episode.name;
+  title.setAttribute("href", episode.url);
+  card.querySelector("#episode-code").textContent = episodeCode(episode.season, episode.number);
+  card.querySelector("#episode-img").src = episode.image.medium;
+  card.querySelector("#episode-summary").innerHTML = episode.summary;
+  return card;
 }
 
 function episodeCode(season, number) {
