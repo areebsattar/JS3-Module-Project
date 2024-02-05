@@ -1,16 +1,5 @@
-//You can edit ALL of the code here
-function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
-}
+const episodes = getAllEpisodes();
 
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  for (const episode of episodeList) {
-    const card = createEpisodeCard(episode);
-    rootElem.append(card);
-  }
-}
 function createEpisodeCard(episode) {
   const card = document.getElementById("episode-card").content.cloneNode(true);
   const title = card.querySelector("#episode-title");
@@ -28,4 +17,10 @@ function episodeCode(season, number) {
   let code = `S${s}E${num}`;
   return code;
 }
-window.onload = setup;
+
+function render() {
+  const episodeCards = episodes.map(createEpisodeCard);
+  document.getElementById("root").append(...episodeCards);
+}
+
+window.onload = render;
