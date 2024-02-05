@@ -34,8 +34,12 @@ function handleSearchInput(event) {
 function render() {
   const rootElem = document.getElementById("root");
   rootElem.innerHTML = "";
-  const filteredEpisodes = state.episodes.filter((episode) => episode.name.toLowerCase().includes(state.searchTerm.toLowerCase()));
-  console.log(filteredEpisodes);
+  const filteredEpisodes = state.episodes.filter(function (episode) {
+    const lowercaseName = episode.name.toLowerCase();
+    const lowercaseSummary = episode.summary.toLowerCase();
+    return lowercaseName.includes(state.searchTerm.toLowerCase()) || lowercaseSummary.includes(state.searchTerm.toLowerCase());
+  });
+
   const episodeCards = filteredEpisodes.map(createEpisodeCard);
   rootElem.append(...episodeCards);
 }
