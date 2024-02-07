@@ -31,18 +31,44 @@ function handleSearchInput(event) {
   render();
 }
 
+// Search
+// <<<<<--------------------------------------------->>>>>>
+// Select down
+
+
+
+function createEpisodeListItem(episode) {
+  const episodeListItem = document.getElementById("episode-list").content.cloneNode(true);
+  episodeListItem.querySelector("option").textContent = `${episodeCode(episode.season, episode.number)} - ${episode.name}`;
+  return episodeListItem;
+}
+
+function renderEpisodeList() {
+  const episodes = state.episodes;
+  for (episode of episodes) {
+    const episodeListItem = createEpisodeListItem(episode);
+    document.getElementById("episode-selector").append(episodeListItem);
+  }
+}
+
 function render() {
+  renderEpisodeList();
+
   const rootElem = document.getElementById("root");
   rootElem.innerHTML = "";
+
   const filteredEpisodes = state.episodes.filter(function (episode) {
     const lowercaseName = episode.name.toLowerCase();
     const lowercaseSummary = episode.summary.toLowerCase();
     return lowercaseName.includes(state.searchTerm.toLowerCase()) || lowercaseSummary.includes(state.searchTerm.toLowerCase());
   });
 
-  document.getElementById("filter-info").textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
+  // Creating DOM elements based on the data..
   const episodeCards = filteredEpisodes.map(createEpisodeCard);
+  // Appending to the HTML
   rootElem.append(...episodeCards);
+
+  document.getElementById("filter-info").textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
 }
 
 render();
