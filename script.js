@@ -1,6 +1,7 @@
 const state = {
   episodes: getAllEpisodes(),
   searchTerm: "",
+  selectedEpisode: "",
 };
 
 function createEpisodeCard(episode) {
@@ -35,11 +36,22 @@ function handleSearchInput(event) {
 // <<<<<--------------------------------------------->>>>>>
 // Select down
 
+const episodeSelector = document.getElementById("episode-selector");
 
+episodeSelector.addEventListener("change", handleSelect);
+
+function handleSelect(event) {
+  state.selectedEpisode = event.target.value;
+  console.log(state.selectedEpisode);
+  render();
+}
 
 function createEpisodeListItem(episode) {
   const episodeListItem = document.getElementById("episode-list").content.cloneNode(true);
-  episodeListItem.querySelector("option").textContent = `${episodeCode(episode.season, episode.number)} - ${episode.name}`;
+  const option = episodeListItem.querySelector("option");
+  option.textContent = `${episodeCode(episode.season, episode.number)} - ${episode.name}`;
+  option.setAttribute("value", episode.id);
+
   return episodeListItem;
 }
 
