@@ -1,7 +1,7 @@
 const state = {
   episodes: getAllEpisodes(),
   searchTerm: "",
-  selectedEpisode: "",
+  selectedEpisodeId: "",
 };
 
 function createEpisodeCard(episode) {
@@ -23,27 +23,20 @@ function episodeCode(season, number) {
 }
 
 const searchBox = document.getElementById("search");
-
 searchBox.addEventListener("input", handleSearchInput);
-
 function handleSearchInput(event) {
   state.searchTerm = event.target.value;
   console.log(state.searchTerm);
-  render();
+  renderBySearch();
 }
 
-// Search
-// <<<<<--------------------------------------------->>>>>>
-// Select down
-
 const episodeSelector = document.getElementById("episode-selector");
-
 episodeSelector.addEventListener("change", handleSelect);
 
 function handleSelect(event) {
-  state.selectedEpisode = event.target.value;
-  console.log(state.selectedEpisode);
-  render();
+  state.selectedEpisodeId = event.target.value;
+  console.log(state.selectedEpisodeId);
+  renderBySelect();
 }
 
 function createEpisodeListItem(episode) {
@@ -55,32 +48,47 @@ function createEpisodeListItem(episode) {
   return episodeListItem;
 }
 
-function renderEpisodeList() {
+function fillEpisodeList() {
   const episodes = state.episodes;
-  for (episode of episodes) {
-    const episodeListItem = createEpisodeListItem(episode);
+  for (e of episodes) {
+    const episodeListItem = createEpisodeListItem(e);
     document.getElementById("episode-selector").append(episodeListItem);
   }
 }
 
-function render() {
-  renderEpisodeList();
+function renderBySelect() {
+  renderByFilter(filterBySelect);
+}
 
+function filterBySelect(episode) {
+  return state.selectedEpisodeId == episode.id;
+}
+
+function renderBySearch() {
+  renderByFilter(filterBySearch);
+}
+
+function filterBySearch(episode) {
+  const lowercaseName = episode.name.toLowerCase();
+  const lowercaseSummary = episode.summary.toLowerCase();
+  return lowercaseName.includes(state.searchTerm.toLowerCase()) || lowercaseSummary.includes(state.searchTerm.toLowerCase());
+}
+
+function renderByFilter(filterFunction) {
   const rootElem = document.getElementById("root");
   rootElem.innerHTML = "";
 
-  const filteredEpisodes = state.episodes.filter(function (episode) {
-    const lowercaseName = episode.name.toLowerCase();
-    const lowercaseSummary = episode.summary.toLowerCase();
-    return lowercaseName.includes(state.searchTerm.toLowerCase()) || lowercaseSummary.includes(state.searchTerm.toLowerCase());
-  });
-
-  // Creating DOM elements based on the data..
+  const filteredEpisodes = state.episodes.filter(filterFunction);
   const episodeCards = filteredEpisodes.map(createEpisodeCard);
-  // Appending to the HTML
   rootElem.append(...episodeCards);
 
   document.getElementById("filter-info").textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
+}
+
+function render() {
+  fillEpisodeList();
+  renderBySelect();
+  renderBySearch();
 }
 
 render();
