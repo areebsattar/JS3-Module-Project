@@ -57,6 +57,7 @@ function fillEpisodeList() {
 }
 
 function renderBySelect() {
+  searchBox.value = "";
   renderByFilter(filterBySelect);
 }
 
@@ -65,6 +66,7 @@ function filterBySelect(episode) {
 }
 
 function renderBySearch() {
+  episodeSelector.selectedIndex = 0;
   renderByFilter(filterBySearch);
 }
 
