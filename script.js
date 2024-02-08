@@ -58,6 +58,7 @@ function fillEpisodeList() {
 
 function renderBySelect() {
   searchBox.value = "";
+  state.searchTerm = "";
   renderByFilter(filterBySelect);
 }
 
@@ -67,6 +68,7 @@ function filterBySelect(episode) {
 
 function renderBySearch() {
   episodeSelector.selectedIndex = 0;
+  state.selectedEpisodeId = "";
   renderByFilter(filterBySearch);
 }
 
@@ -86,6 +88,8 @@ function renderByFilter(filterFunction) {
 
   document.getElementById("filter-info").textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
 }
+
+document.getElementById("all-episodes").addEventListener("click", render);
 
 function render() {
   fillEpisodeList();
