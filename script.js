@@ -24,6 +24,7 @@ function episodeCode(season, number) {
 
 const searchBox = document.getElementById("search");
 searchBox.addEventListener("input", handleSearchInput);
+
 function handleSearchInput(event) {
   state.searchTerm = event.target.value;
   console.log(state.searchTerm);
@@ -59,11 +60,7 @@ function fillEpisodeList() {
 function renderBySelect() {
   searchBox.value = "";
   state.searchTerm = "";
-  renderByFilter(filterBySelect);
-}
-
-function filterBySelect(episode) {
-  return state.selectedEpisodeId == episode.id;
+  renderByFilter((episode) => state.selectedEpisodeId == episode.id);
 }
 
 function renderBySearch() {
