@@ -10,17 +10,30 @@
 </head>
 
 <body>
-  <div id="root">
-    <template id="show-card">
-      <section id="firstSection">
-        <h1 id="show-title">Episode Title</h1>
-        <p id="episode-code">Episode code</p>
-        </section>
-        <section id = "secondSection">
-        <img id="episode-img"></img>
-        <p id="episode-summary">summary</p>
-      </section>
+  <label>
+    <input type="search" id="search" name="search-field" placeholder="Search term" /> 🔍
+  </label>
+
+  <select id="episode-selector">
+    <option value="" selected disabled>Select an option</option>
+    <template id="episode-list">
+      <option value=""></option>
     </template>
+  </select>
+  <button id="all-episodes">Show all episodes</button>
+
+  <span id="filter-info"></span>
+  <template id="episode-card">
+    <section id="firstSection">
+      <h1 id="episode-title">Episode Title</h1>
+      <p id="episode-code">Episode cod</p>
+    </section>
+    <section id="secondSection">
+      <img id="episode-img"></img>
+      <p id="episode-summary">summary</p>
+    </section>
+  </template>
+  <div id="root">
   </div>
   <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
   <script src="episodes.js"></script>
