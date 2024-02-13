@@ -119,3 +119,4 @@ function render() {
 }
 
 render();
+fetchEpisodes();
