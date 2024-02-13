@@ -11,6 +11,11 @@ body {
   padding: 20px;
 }
 
+#error-container {
+  text-decoration: wavy;
+  color: red;
+}
+
 #card-temp {
   border: 1px solid #ddd;
   padding: 15px;
@@ -62,4 +67,4 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-} 
+}

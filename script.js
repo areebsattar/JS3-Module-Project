@@ -2,17 +2,18 @@ const state = {
   episodes: [],
   searchTerm: "",
   selectedEpisodeId: "",
+  error: null,
 };
 
 async function fetchEpisodes() {
   try {
     const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
     const data = await response.json();
-    console.log(data);
     state.episodes = data;
     render();
   } catch (error) {
-    console.error("Error getting episodes", error);
+    state.error = "Error getting episodes, Please try again later";
+    render();
   }
 }
 
@@ -116,6 +117,8 @@ function render() {
   fillEpisodeList();
   renderBySelect();
   renderBySearch();
+  const errorContainer = document.getElementById("error-container");
+  errorContainer.textContent = state.error || ""; // Display the error or an empty string if no error
 }
 
 render();
