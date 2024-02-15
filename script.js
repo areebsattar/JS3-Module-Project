@@ -10,11 +10,10 @@ async function fetchEpisodes() {
     const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
     const data = await response.json();
     state.episodes = data;
-    render();
   } catch (error) {
     state.error = "Error getting episodes, Please try again later";
-    render();
   }
+  render();
 }
 
 function createEpisodeCard(episode) {
@@ -22,10 +21,7 @@ function createEpisodeCard(episode) {
   const title = card.querySelector("#episode-title");
   title.textContent = episode.name;
   title.setAttribute("href", episode.url);
-  card.querySelector("#episode-code").textContent = episodeCode(
-    episode.season,
-    episode.number
-  );
+  card.querySelector("#episode-code").textContent = episodeCode(episode.season, episode.number);
   card.querySelector("#episode-img").src = episode.image.medium;
   card.querySelector("#episode-summary").innerHTML = episode.summary;
   return card;
@@ -57,13 +53,9 @@ function handleSelect(event) {
 }
 
 function createEpisodeListItem(episode) {
-  const episodeListItem = document
-    .getElementById("episode-list")
-    .content.cloneNode(true);
+  const episodeListItem = document.getElementById("episode-list").content.cloneNode(true);
   const option = episodeListItem.querySelector("option");
-  option.textContent = `${episodeCode(episode.season, episode.number)} - ${
-    episode.name
-  }`;
+  option.textContent = `${episodeCode(episode.season, episode.number)} - ${episode.name}`;
   option.setAttribute("value", episode.id);
 
   return episodeListItem;
@@ -92,10 +84,7 @@ function renderBySearch() {
 function filterBySearch(episode) {
   const lowercaseName = episode.name.toLowerCase();
   const lowercaseSummary = episode.summary.toLowerCase();
-  return (
-    lowercaseName.includes(state.searchTerm.toLowerCase()) ||
-    lowercaseSummary.includes(state.searchTerm.toLowerCase())
-  );
+  return lowercaseName.includes(state.searchTerm.toLowerCase()) || lowercaseSummary.includes(state.searchTerm.toLowerCase());
 }
 
 function renderByFilter(filterFunction) {
@@ -106,9 +95,7 @@ function renderByFilter(filterFunction) {
   const episodeCards = filteredEpisodes.map(createEpisodeCard);
   rootElem.append(...episodeCards);
 
-  document.getElementById(
-    "filter-info"
-  ).textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
+  document.getElementById("filter-info").textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
 }
 
 document.getElementById("all-episodes").addEventListener("click", render);
@@ -121,5 +108,4 @@ function render() {
   errorContainer.textContent = state.error || ""; // Display the error or an empty string if no error
 }
 
-render();
 fetchEpisodes();
