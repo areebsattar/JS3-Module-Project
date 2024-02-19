@@ -10,16 +10,25 @@
 </head>
 
 <body>
-  <label>
-    <input type="search" id="search" name="search-field" placeholder="Search term" /> 🔍
-  </label>
 
-  <select id="episode-selector">
-    <option value="" selected disabled>Select an option</option>
-    <template id="episode-list">
+
+  <select id="show-selector">
+    <option value="" selected disabled>Select a show</option>
+    <template id="show-list">
       <option value=""></option>
     </template>
   </select>
+  <template id="episode-list">
+    <option value=""></option>
+  </template>
+  <select id="episode-selector">
+    <option value="" selected disabled>Select an option</option>
+
+  </select>
+
+  <label>
+    <input type="search" id="search" name="search-field" placeholder="Search term" /> 🔍
+  </label>
   <button id="all-episodes">Show all episodes</button>
   <span id="filter-info"></span>
 
