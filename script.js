@@ -100,11 +100,11 @@ function createEpisodeListItem(episode) {
 
 function fillShowList() {
   const shows = state.shows;
-  for (s of shows) {
-    const showListItem = createShowListItem(s);
+  for (show of shows) {
+    const showListItem = createShowListItem(show);
     document.getElementById("show-selector").append(showListItem);
-    if (s.id == state.selectedShowId) {
-      document.getElementById("show-selector").value = s.id;
+    if (show.id == state.selectedShowId) {
+      document.getElementById("show-selector").value = show.id;
     }
   }
 }
