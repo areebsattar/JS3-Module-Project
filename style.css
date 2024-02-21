@@ -5,7 +5,14 @@ body {
 }
 
 #root {
-  display: grid;
+  display: none;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+#show-list-container {
+  display: none;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
   gap: 20px;
   padding: 20px;
@@ -21,7 +28,7 @@ body {
 .show-card {
   text-align: center;
   background-color: #f9f9f9;
-  max-width: 300px;
+  max-width: 600px;
   margin: 10px;
 }
 

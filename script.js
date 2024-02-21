@@ -16,8 +16,8 @@ async function fetchShows() {
     state.shows.sort(function (a, b) {
       return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
     });
-    state.selectedShowId = state.shows[0].id;
-    fetchEpisodes();
+    // state.selectedShowId = state.shows[0].id;
+    renderShows();
   } catch (error) {
     state.error = "Error getting shows, Please try again later";
   }
@@ -32,6 +32,9 @@ async function fetchEpisodes() {
     );
     const data = await response.json();
     state.episodes = data;
+
+    const rootElem = document.getElementById("root");
+    rootElem.style.display = "grid";
   } catch (error) {
     state.error = "Error getting episodes, Please try again later";
   }
@@ -42,12 +45,31 @@ function renderShows() {
   const showListContainer = document.getElementById("show-list-container");
   showListContainer.innerHTML = "";
 
+  const rootElem = document.getElementById("root");
+  const showSelector = document.getElementById("show-selector");
+
+  if (state.selectedShowId) {
+    showListContainer.style.display = "none";
+    rootElem.style.display = "grid";
+    if (state.episodes.length === 0) {
+      fetchEpisodes();
+    }
+  } else {
+    showListContainer.style.display = "grid";
+    rootElem.style.display = "none";
+  }
   const shows = state.shows;
   for (const show of shows) {
     const showCard = document
       .getElementById("show-card")
       .content.cloneNode(true);
-    showCard.querySelector("#show-title").textContent = show.name;
+    const titleElement = showCard.querySelector("#show-title");
+    titleElement.textContent = show.name;
+
+    titleElement.addEventListener("click", () => {
+      state.selectedShowId = show.id;
+      fetchEpisodes();
+    });
     showCard.querySelector("#show-img").src = show.image.medium;
     showCard.querySelector("#show-summary").innerHTML = show.summary;
     showCard.querySelector("#show-genres").textContent = show.genres;
@@ -92,19 +114,33 @@ const showSelector = document.getElementById("show-selector");
 showSelector.addEventListener("change", handleShowSelect);
 
 function handleShowSelect(event) {
-  state.selectedShowId = event.target.value;
-  console.log(state.selectedShowId);
-  fetchEpisodes();
+  const selectedValue = event.target.value;
+  if (selectedValue === "all") {
+    state.selectedShowId = "";
+    render();
+  } else {
+    state.selectedShowId = selectedValue;
+    fetchEpisodes();
+  }
 }
 
 function createShowListItem(show) {
-  const showListItem = document
-    .getElementById("show-list")
-    .content.cloneNode(true);
-  const option = showListItem.querySelector("option");
-  option.textContent = show.name;
-  option.setAttribute("value", show.id);
+  const showListItem = document.createElement("option");
+  showListItem.textContent = show.name;
+  showListItem.setAttribute("value", show.id);
+
+  showListItem.addEventListener("click", () => {
+    state.selectedShowId = show.id;
+    fetchEpisodes();
+  });
   return showListItem;
+}
+
+function createShowAllOption() {
+  const showAllOption = document.createElement("option");
+  showAllOption.textContent = "Show All Shows";
+  showAllOption.setAttribute("value", "all");
+  return showAllOption;
 }
 
 const episodeSelector = document.getElementById("episode-selector");
@@ -130,14 +166,21 @@ function createEpisodeListItem(episode) {
 }
 
 function fillShowList() {
+  const showSelector = document.getElementById("show-selector");
+  showSelector.innerHTML = "";
+
+  const showAllOption = createShowAllOption();
+  showSelector.appendChild(showAllOption);
+
   const shows = state.shows;
-  for (show of shows) {
+  for (const show of shows) {
     const showListItem = createShowListItem(show);
     document.getElementById("show-selector").append(showListItem);
     if (show.id == state.selectedShowId) {
       document.getElementById("show-selector").value = show.id;
     }
   }
+  showSelector.addEventListener("change", handleShowSelect);
 }
 
 function fillEpisodeList() {
