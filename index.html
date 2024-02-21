@@ -11,7 +11,6 @@
 
 <body>
 
-
   <select id="show-selector">
     <option value="" selected disabled>Select a show</option>
     <template id="show-list">
@@ -23,15 +22,26 @@
   </template>
   <select id="episode-selector">
     <option value="" selected disabled>Select an option</option>
-
   </select>
-
+  <button id="all-episodes">Show all episodes</button>
   <label>
     <input type="search" id="search" name="search-field" placeholder="Search term" /> 🔍
   </label>
-  <button id="all-episodes">Show all episodes</button>
+
   <span id="filter-info"></span>
 
+  <div id="show-list-container"></div>
+  <template id="show-card">
+    <div class="show-card">
+      <h2 id="show-title">Show Title</h2>
+      <img id="show-img">
+      <p id="show-summary">Summary</p>
+      <p id="show-genres">Genres</p>
+      <p id="show-status">Status</p>
+      <p id="show-rating">Rating</p>
+      <p id="show-runtime">Runtime</p>
+    </div>
+  </template>
   <div id="error-container"></div>
   <template id="episode-card">
     <section id="card-temp">

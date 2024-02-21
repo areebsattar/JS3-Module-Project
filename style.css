@@ -11,15 +11,18 @@ body {
   padding: 20px;
 }
 
-#error-container {
-  text-decoration: wavy;
-  color: red;
-}
-
+.show-card,
 #card-temp {
   border: 1px solid #ddd;
   padding: 15px;
   border-radius: 8px;
+}
+
+.show-card {
+  text-align: center;
+  background-color: #f9f9f9;
+  max-width: 300px;
+  margin: 10px;
 }
 
 #firstSection,
@@ -38,19 +41,26 @@ body {
   background-color: rgb(255, 253, 249);
 }
 
-#episode-title {
+#episode-title,
+#show-title {
   margin: 0;
-  text-decoration: solid;
+  text-decoration: underline; /* or any other style you prefer */
 }
 
-#episode-img {
+#episode-img,
+#show-img {
   max-width: 100%;
   height: auto;
   margin-top: 10px;
 }
 
 #episode-code,
-#episode-summary {
+#episode-summary,
+#show-summary,
+#show-genres,
+#show-status,
+#show-rating,
+#show-runtime {
   margin: 10px 0;
 }
 

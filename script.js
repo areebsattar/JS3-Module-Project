@@ -27,7 +27,9 @@ async function fetchShows() {
 async function fetchEpisodes() {
   try {
     const showId = state.selectedShowId;
-    const response = await fetch(`https://api.tvmaze.com/shows/${showId}/episodes`);
+    const response = await fetch(
+      `https://api.tvmaze.com/shows/${showId}/episodes`
+    );
     const data = await response.json();
     state.episodes = data;
   } catch (error) {
@@ -36,12 +38,35 @@ async function fetchEpisodes() {
   render();
 }
 
+function renderShows() {
+  const showListContainer = document.getElementById("show-list-container");
+  showListContainer.innerHTML = "";
+
+  const shows = state.shows;
+  for (const show of shows) {
+    const showCard = document
+      .getElementById("show-card")
+      .content.cloneNode(true);
+    showCard.querySelector("#show-title").textContent = show.name;
+    showCard.querySelector("#show-img").src = show.image.medium;
+    showCard.querySelector("#show-summary").innerHTML = show.summary;
+    showCard.querySelector("#show-genres").textContent = show.genres;
+    showCard.querySelector("#show-status").textContent = show.status;
+    showCard.querySelector("#show-rating").textContent = show.rating;
+    showCard.querySelector("#show-runtime").textContent = show.runtime;
+    showListContainer.appendChild(showCard);
+  }
+}
+
 function createEpisodeCard(episode) {
   const card = document.getElementById("episode-card").content.cloneNode(true);
   const title = card.querySelector("#episode-title");
   title.textContent = episode.name;
   title.setAttribute("href", episode.url);
-  card.querySelector("#episode-code").textContent = episodeCode(episode.season, episode.number);
+  card.querySelector("#episode-code").textContent = episodeCode(
+    episode.season,
+    episode.number
+  );
   card.querySelector("#episode-img").src = episode.image.medium;
   card.querySelector("#episode-summary").innerHTML = episode.summary;
   return card;
@@ -73,7 +98,9 @@ function handleShowSelect(event) {
 }
 
 function createShowListItem(show) {
-  const showListItem = document.getElementById("show-list").content.cloneNode(true);
+  const showListItem = document
+    .getElementById("show-list")
+    .content.cloneNode(true);
   const option = showListItem.querySelector("option");
   option.textContent = show.name;
   option.setAttribute("value", show.id);
@@ -90,9 +117,13 @@ function handleEpisodeSelect(event) {
 }
 
 function createEpisodeListItem(episode) {
-  const episodeListItem = document.getElementById("episode-list").content.cloneNode(true);
+  const episodeListItem = document
+    .getElementById("episode-list")
+    .content.cloneNode(true);
   const option = episodeListItem.querySelector("option");
-  option.textContent = `${episodeCode(episode.season, episode.number)} - ${episode.name}`;
+  option.textContent = `${episodeCode(episode.season, episode.number)} - ${
+    episode.name
+  }`;
   option.setAttribute("value", episode.id);
 
   return episodeListItem;
@@ -118,8 +149,8 @@ function fillEpisodeList() {
   document.getElementById("episode-selector").append(defaultOption);
 
   const episodes = state.episodes;
-  for (e of episodes) {
-    const episodeListItem = createEpisodeListItem(e);
+  for (episode of episodes) {
+    const episodeListItem = createEpisodeListItem(episode);
     document.getElementById("episode-selector").append(episodeListItem);
   }
 }
@@ -139,7 +170,10 @@ function renderBySearch() {
 function filterBySearch(episode) {
   const lowercaseName = episode.name.toLowerCase();
   const lowercaseSummary = episode.summary.toLowerCase();
-  return lowercaseName.includes(state.searchTerm.toLowerCase()) || lowercaseSummary.includes(state.searchTerm.toLowerCase());
+  return (
+    lowercaseName.includes(state.searchTerm.toLowerCase()) ||
+    lowercaseSummary.includes(state.searchTerm.toLowerCase())
+  );
 }
 
 function renderByFilter(filterFunction) {
@@ -150,7 +184,9 @@ function renderByFilter(filterFunction) {
   const episodeCards = filteredEpisodes.map(createEpisodeCard);
   rootElem.append(...episodeCards);
 
-  document.getElementById("filter-info").textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
+  document.getElementById(
+    "filter-info"
+  ).textContent = `Displaying ${filteredEpisodes.length}/${state.episodes.length} episodes`;
 }
 
 document.getElementById("all-episodes").addEventListener("click", render);
@@ -160,6 +196,7 @@ function render() {
   fillEpisodeList();
   renderByEpisodeSelect();
   renderBySearch();
+  renderShows();
   const errorContainer = document.getElementById("error-container");
   errorContainer.textContent = state.error || ""; // Display the error or an empty string if no error
 }
