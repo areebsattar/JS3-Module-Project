@@ -147,9 +147,14 @@ const episodeSelector = document.getElementById("episode-selector");
 episodeSelector.addEventListener("change", handleEpisodeSelect);
 
 function handleEpisodeSelect(event) {
-  state.selectedEpisodeId = event.target.value;
-  console.log(state.selectedEpisodeId);
-  renderByEpisodeSelect();
+  const selectedValue = event.target.value;
+  if (selectedValue === "all-episodes") {
+    renderByFilter(() => true);
+  }
+  else {
+    state.selectedEpisodeId = selectedValue;
+    renderByEpisodeSelect();
+  }
 }
 
 function createEpisodeListItem(episode) {
@@ -185,14 +190,18 @@ function fillShowList() {
 
 function fillEpisodeList() {
   episodeSelector.textContent = "";
-  const defaultOption = document.createElement("option");
-  defaultOption.selected = true;
-  defaultOption.disabled = true;
-  defaultOption.innerHTML = "Select an option";
-  document.getElementById("episode-selector").append(defaultOption);
+
+  const allEpisodesOption = document.createElement("option");
+  allEpisodesOption.value = "all-episodes";
+  allEpisodesOption.textContent = "Show All Episodes"
+  // const defaultOption = document.createElement("option");
+  // defaultOption.selected = true;
+  // defaultOption.disabled = true;
+  // defaultOption.innerHTML = "Select an option";
+  document.getElementById("episode-selector").append(allEpisodesOption);
 
   const episodes = state.episodes;
-  for (episode of episodes) {
+  for (const episode of episodes) {
     const episodeListItem = createEpisodeListItem(episode);
     document.getElementById("episode-selector").append(episodeListItem);
   }
