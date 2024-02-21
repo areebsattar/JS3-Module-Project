@@ -242,6 +242,11 @@ function renderByFilter(filterFunction) {
 }
 
 document.getElementById("all-episodes").addEventListener("click", render);
+document.getElementById("all-shows").addEventListener("click", showAllShows)
+function showAllShows() {
+  state.selectedShowId = "";
+  fetchEpisodes();
+} 
 
 function render() {
   fillShowList();
