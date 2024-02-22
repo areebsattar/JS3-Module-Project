@@ -1,7 +1,7 @@
 const state = {
   shows: [],
   episodes: [],
-  searchTerm: "",
+  episodeSearchTerm: "",
   selectedShowId: "",
   selectedEpisodeId: "",
   error: null,
@@ -101,12 +101,12 @@ function episodeCode(season, number) {
   return code;
 }
 
-const searchBox = document.getElementById("search");
+const searchBox = document.getElementById("episode-search");
 searchBox.addEventListener("input", handleSearchInput);
 
 function handleSearchInput(event) {
-  state.searchTerm = event.target.value;
-  console.log(state.searchTerm);
+  state.episodeSearchTerm = event.target.value;
+  console.log(state.episodeSearchTerm);
   renderBySearch();
 }
 
@@ -209,7 +209,7 @@ function fillEpisodeList() {
 
 function renderByEpisodeSelect() {
   searchBox.value = "";
-  state.searchTerm = "";
+  state.episodeSearchTerm = "";
   renderByFilter((episode) => state.selectedEpisodeId == episode.id);
 }
 
@@ -223,8 +223,8 @@ function filterBySearch(episode) {
   const lowercaseName = episode.name.toLowerCase();
   const lowercaseSummary = episode.summary.toLowerCase();
   return (
-    lowercaseName.includes(state.searchTerm.toLowerCase()) ||
-    lowercaseSummary.includes(state.searchTerm.toLowerCase())
+    lowercaseName.includes(state.episodeSearchTerm.toLowerCase()) ||
+    lowercaseSummary.includes(state.episodeSearchTerm.toLowerCase())
   );
 }
 
