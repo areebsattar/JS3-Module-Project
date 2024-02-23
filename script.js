@@ -79,6 +79,7 @@ function renderShows() {
       fetchEpisodes();
     });
     showCard.querySelector("#show-img").src = show.image.medium;
+    showCard.querySelector("#show-img").alt = `Image for ${show.name}`;
     showCard.querySelector("#show-summary").innerHTML = show.summary;
     showCard.querySelector(
       "#show-genres"
@@ -106,6 +107,7 @@ function createEpisodeCard(episode) {
     episode.number
   );
   card.querySelector("#episode-img").src = episode.image.medium;
+  card.querySelector("#episode-img").alt = `Image for ${episode.name}`;
   card.querySelector("#episode-summary").innerHTML = episode.summary;
   return card;
 }
@@ -234,6 +236,7 @@ function renderByShowSearch() {
       .content.cloneNode(true);
     showCard.querySelector("#show-title").textContent = show.name;
     showCard.querySelector("#show-img").src = show.image.medium;
+    showCard.querySelector("#show-img").alt = `Image for ${show.name}`;
     showCard.querySelector("#show-summary").innerHTML = show.summary;
     showCard.querySelector(
       "#show-genres"

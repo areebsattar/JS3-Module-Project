@@ -10,13 +10,14 @@
 </head>
 
 <body>
-
+<label for="show-selector">Select Shows 
   <select id="show-selector">
     <option value="" selected disabled>Select a show</option>
     <template id="show-list">
       <option value=""></option>
     </template>
   </select>
+  </label>
   <label>
     <input type="search" id="show-search" name="show-search-field" placeholder="Search shows" />
     🔍
@@ -25,9 +26,11 @@
   <template id="episode-list">
     <option value=""></option>
   </template>
+  <label for="episode-selector">Select Episode
   <select id="episode-selector">
     <option value="" selected disabled>Select an option</option>
   </select>
+  </label>
   <button type="button" id="all-episodes">Show all episodes</button>
   <label>
     <input type="search" id="episode-search" name="search-field" placeholder="Search term" /> 🔍
