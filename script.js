@@ -56,15 +56,24 @@ function renderShows() {
   showListContainer.innerHTML = "";
 
   const rootElem = document.getElementById("root");
+  const episodeSearch = document.getElementById("episode-search");
+  const episodeSelector = document.getElementById("episode-selector");
+  const episodesButton = document.getElementById("all-episodes");
   if (state.selectedShowId) {
     showListContainer.style.display = "none";
     rootElem.style.display = "grid";
+    episodeSearch.style.display = "block"; // Show the episode search box
+    episodeSelector.style.display = "block"; // Show the episode selector
+    episodesButton.style.display = "block"; //To show the button Show All Episodes 
     if (state.episodes.length === 0) {
       fetchEpisodes();
     }
   } else {
     showListContainer.style.display = "grid";
     rootElem.style.display = "none";
+    episodeSearch.style.display = "none"; // Hide the episode search box
+    episodeSelector.style.display = "none"; // Hide the episode selector
+    episodesButton.style.display = "none"; //To hide the button Show All Episodes
   }
   const shows = state.shows;
   for (const show of shows) {

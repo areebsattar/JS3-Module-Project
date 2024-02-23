@@ -11,11 +11,65 @@ body {
   padding: 20px;
 }
 
+/* Search box */
+#show-search,
+#episode-search {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Select dropdowns */
+#show-selector,
+#episode-selector {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* Buttons */
+button {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#all-shows,
+#all-episodes {
+  background-color: #9b7a48;
+}
+
+#all-shows:hover,
+#all-episodes:hover {
+  background-color: #d38967;
+}
+
 #show-list-container {
   display: none;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
   gap: 20px;
   padding: 20px;
+}
+
+#show-title {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#show-title:hover {
+  color: #da6c23;
 }
 
 .show-card,
